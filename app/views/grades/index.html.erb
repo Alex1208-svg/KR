@@ -1,0 +1,28 @@
+<h1>Рейтинг студентов</h1>
+
+<table class="table-auto w-full text-left">
+  <thead>
+  <tr>
+    <th class="px-4 py-2">Студент</th>
+    <th class="px-4 py-2">Средний балл</th>
+    <th class="px-4 py-2">Зачтено постов</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @students.present? %>
+    <% @students.each do |data| %>
+      <tr>
+        <td class="border px-4 py-2"><%= data[:student].full_name || data[:student].email %></td>
+        <td class="border px-4 py-2">
+          <%= data[:average_score].positive? ? data[:average_score] : "Нет оценок" %>
+        </td>
+        <td class="border px-4 py-2"><%= data[:passed_posts_count] %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="3" class="border px-4 py-2 text-center">Нет студентов для отображения</td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

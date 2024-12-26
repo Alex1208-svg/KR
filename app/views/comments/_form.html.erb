@@ -1,0 +1,7 @@
+<%= form_with(model: [ @post, @comment ], local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :content, 'Комментарий' %>
+    <%= form.text_area :content, rows: 3, class: "form-control" %>
+  </div>
+  <%= form.submit @comment.new_record? ? "Добавить комментарий" : "Обновить комментарий", class: "btn btn-primary" %>
+<% end %>

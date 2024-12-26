@@ -1,0 +1,33 @@
+<!-- app/views/admin/users/_form.html.erb -->
+<%= form_with model: @user, url: @user.new_record? ? admin_users_path : admin_user_path(@user), method: @user.new_record? ? :post : :patch do |form| %>
+  <div class="field">
+    <%= form.label :full_name, 'Имя' %>
+    <%= form.text_field :full_name, class: "input", value: @user.full_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email, 'Почта' %>
+    <%= form.email_field :email, class: "input", value: @user.email %>
+  </div>
+
+  <% if @user.new_record? %>
+    <div class="field">
+      <%= form.label :password, 'Пароль' %>
+      <%= form.password_field :password, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_confirmation, 'Подтверждение пароля' %>
+      <%= form.password_field :password_confirmation, class: "input" %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :role, 'Роль' %>
+    <%= form.select :role, User.roles.keys.map { |r| [r.humanize, r] }, class: "input", selected: @user.role %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit @user.new_record? ? 'Создать' : 'Обновить', class: "button" %>
+  </div>
+<% end %>

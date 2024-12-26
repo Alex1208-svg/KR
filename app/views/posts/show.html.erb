@@ -1,0 +1,126 @@
+<%= stylesheet_link_tag "application", data: { turbo_track: "reload" } %>
+
+<div class="grid lg:grid-cols-2 grid-cols-1 mt-4 px-4">
+  <div class="youtube-layout">
+    <% if @post.video.attached? %>
+      <div class="video-container">
+        <video controls>
+          <source src="<%= url_for(@post.video) %>" type="video/mp4">
+          Ваш браузер не поддерживает тег видео.
+        </video>
+      </div>
+      <h2 class="text-1xl post-details">Загружено <%= time_ago_in_words(@post.created_at) %> назад</h2>
+    <% elsif @post.image.attached? %>
+      <%= image_tag(@post.image, class: "thumbnail") %>
+    <% end %>
+  </div>
+
+  <div class="overlay xl:text-align:left;">
+    <div class="overlay-content">
+      <h2 class="text-5xl post-details"><%= @post.title %></h2>
+      <p class="post-details">Опубликовал <%= @post.user.full_name %></p>
+    </div>
+    <br>
+
+    <% if @post.video.attached? || @post.image.attached? %>
+      <%= link_to 'Загрузить', download_post_path(@post), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <% end %>
+
+    <% if current_user %>
+
+      <h2 class="text-1xl post-details"></h2>
+
+      <% if @post.user_id == current_user.id %>
+        <%= link_to image_tag("edit.svg", style:"height: 20px;"), edit_post_path(@post), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block" %>
+        <%= button_to image_tag("delete.svg", style:"height: 20px;"), post_path(@post), method: :delete, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!-- Стилизация -->
+<style>
+    .youtube-layout {
+        width: 65%;
+        margin: 0 auto;
+    }
+    .thumbnail {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        object-fit: contain;
+    }
+    .post-details {
+        padding: 10px;
+    }
+    .post-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .post-details p {
+        font-size: 14px;
+    }
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        padding-top: 30px;
+        height: 0;
+        overflow: hidden;
+    }
+    .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .comment {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+
+<!-- Блок комментариев -->
+<h2 class="text-3xl post-details">Комментарии</h2>
+
+<%= form_with model: [@post, Comment.new], local: true do |form| %>
+  <div class="field">
+    <%= form.label :content, 'Ваш комментарий', class: 'text-2xl' %>
+    <%= form.text_area :content, rows: 3, class: 'mt-2 p-2 border rounded w-full' %>
+  </div>
+
+  <div class="actions mt-4">
+    <%= form.submit 'Добавить комментарий', class: 'bg-blue-500 text-white py-2 px-4 rounded' %>
+  </div>
+<% end %>
+
+<!-- Список комментариев -->
+<% @comments.each do |comment| %>
+  <div class="comment mt-4 p-4 border-b">
+    <p>Комментарий от <%= comment.user.full_name %>: <%= comment.content %></p>
+    <%= link_to 'Редактировать', edit_post_comment_path(@post, comment), class: "btn btn-link" %>
+    <%= link_to 'Удалить комментарий', post_comment_path(post_slug: @post.slug, id: comment.id), method: :delete, data: { confirm: 'Вы уверены?' } %>
+  </div>
+<% end %>
+<h2 class="text-1xl post-details"></h2>
+<% if current_user.teacher? || current_user.admin? %>
+  <% if @post.grade&.status %>
+    <%= button_to 'Снять зачёт', disapprove_post_path(@post), method: :patch, class: 'btn btn-warning', class: 'bg-blue-500 text-white py-2 px-4 rounded' %>
+  <% else %>
+    <%= form_with url: approve_post_path(@post), method: :patch, local: true do |f| %>
+      <div class="field">
+        <%= f.label :score, 'Оценка (0-100):' %>
+        <%= f.number_field :score, value: @post.grade&.score, min: 0, max: 100 %>
+      </div>
+      <div class="actions">
+        <%= f.submit 'Зачесть с оценкой', class: 'bg-green-500 text-white py-2 px-4 rounded' %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+

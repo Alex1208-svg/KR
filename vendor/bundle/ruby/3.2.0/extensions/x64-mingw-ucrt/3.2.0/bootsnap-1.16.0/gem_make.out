@@ -1,0 +1,19 @@
+current directory: D:/KR/Youtube-main/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+C:/Ruby32-x64/bin/ruby.exe extconf.rb
+creating Makefile
+
+current directory: D:/KR/Youtube-main/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20241007-15152-f1paog sitelibdir\=./.gem.20241007-15152-f1paog clean
+
+current directory: D:/KR/Youtube-main/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20241007-15152-f1paog sitelibdir\=./.gem.20241007-15152-f1paog
+generating bootsnap-x64-mingw-ucrt.def
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: D:/KR/Youtube-main/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20241007-15152-f1paog sitelibdir\=./.gem.20241007-15152-f1paog install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20241007-15152-f1paog/bootsnap
+
+current directory: D:/KR/Youtube-main/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20241007-15152-f1paog sitelibdir\=./.gem.20241007-15152-f1paog clean

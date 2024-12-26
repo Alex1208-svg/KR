@@ -1,0 +1,56 @@
+"en":
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "полминуты"
+      less_than_x_seconds:
+        one:   "менее чем 1 секунду"
+        other: "менее чем %{count} секунд"
+      x_seconds:
+        one:   "1 секунда"
+        other: "%{count} секунд"
+      less_than_x_minutes:
+        one:   "менее чем минуту"
+        other: "менее чем %{count} минут"
+      x_minutes:
+        one:   "1 минуту"
+        other: "%{count} минут"
+      about_x_hours:
+        one:   "около 1 часа"
+        other: "около %{count} часов"
+      x_days:
+        one:   "1 день"
+        other: "%{count} дней"
+      about_x_months:
+        one:   "около 1 месяца"
+        other: "около %{count} месяцев"
+      x_months:
+        one:   "1 месяц"
+        other: "%{count} месяцев"
+      about_x_years:
+        one:   "около 1 года"
+        other: "около %{count} лет"
+      over_x_years:
+        one:   "более 1 года"
+        other: "более %{count} лет"
+      almost_x_years:
+        one:   "почти 1 год"
+        other: "почти %{count} лет"
+    prompts:
+      year:   "Год"
+      month:  "Месяц"
+      day:    "День"
+      hour:   "Час"
+      minute: "Минута"
+      second: "Секунда"
+
+  helpers:
+    select:
+      # Default value for :prompt => true in FormOptionsHelper
+      prompt: "Пожалуйста выберите"
+
+    # Default translation keys for submit and button FormHelper
+    submit:
+      create: 'Создать %{model}'
+      update: 'Обновить %{model}'
+      submit: 'Сохранить %{model}'

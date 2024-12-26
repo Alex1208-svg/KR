@@ -1,0 +1,36 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@500&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+<div class="place-items-center">
+  <section class="relative mx-auto">
+    <!-- navbar -->
+    <nav class="flex items-center justify-between text-white" style="background-color: #282828; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+      <div class="flex items-center w-full px-5 py-6 w-90 xl:px-12">
+
+        <!-- Nav Links -->
+        <ul class="hidden px-4 mx-auto space-x-12 md:flex font-heading">
+          <% if user_signed_in? %>
+          <% if current_user %>
+            <li><a class="hover:text-gray-200" href="/">Главная</a></li>
+            <li><a class="hover:text-gray-200" href="#"><%= link_to "Мои медиа", pages_media_path %></a></li>
+            <li><%= link_to "Успеваемость студентов", grades_path, class: "hover:text-gray-200" %></li>
+            <!--<li><%= link_to "Войти", new_user_session_path, class: "bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded shadow" %></li>-->
+            <% if current_user.admin? || current_user&.teacher? %>
+              <li><%= link_to 'Добавить пользователя', new_admin_user_path, class: "hover:text-gray-200" %></li>
+              <li><%= link_to 'Списки пользователей', admin_users_path, class: "hover:text-gray-200" %></li>
+            <% end %>
+              <li><%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: "hover:text-gray-200" %></li>
+          <% end %>
+
+          <% end %>
+
+        </ul>
+
+         <!-- Header Icons -->
+      </div>
+      <!-- Responsive navbar -->
+      <%#= render "layouts/search_bar"%>
+    </nav>
+  </section>
+</div>
